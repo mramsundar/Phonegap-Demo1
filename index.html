@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -7,56 +6,52 @@
         <script src="phonegap.js"></script>
         <script src="jquery.js"></script>
         <script>
-            $(document).on("click", "#vibrate", function ()
+            document.addEventListener("deviceready", function ()
             {
-                navigator.notification.vibrate(100);
-            });
 
-            $(document).on("click", "#takepicture", function ()
-            {               
-
-                function onSuccess(imageURI)
+                $(document).on("click", "#vibrate", function ()
                 {
-                    $("#imgplaceholder").html("");
-                    $("#imgplaceholder").html("<img src='" + imageURI + "' />");
-
-                }
-
-                function onFail(message)
-                {
-                    alert('Failed because: ' + message);
-                }
-
-                navigator.camera.getPicture(onSuccess, onFail,
-                {
-                    quality: 50,
-                    destinationType: Camera.DestinationType.FILE_URI
+                    navigator.notification.vibrate(100);
                 });
-            });
 
-            $(document).on("click", "#geolocation", function () 
-            { 
-                var onSuccess = function(position) 
+                $(document).on("click", "#takepicture", function ()
                 {
-                            alert('Latitude: '          + position.coords.latitude          + '\n' +
-                                  'Longitude: '         + position.coords.longitude         + '\n' +
-                                  'Altitude: '          + position.coords.altitude          + '\n' +
-                                  'Accuracy: '          + position.coords.accuracy          + '\n' +
-                                  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                                  'Heading: '           + position.coords.heading           + '\n' +
-                                  'Speed: '             + position.coords.speed             + '\n' +
-                                  'Timestamp: '         + position.timestamp                + '\n');
-                };
 
+                    function onSuccess(imageURI)
+                    {
+                        $("#imgplaceholder").html("");
+                        $("#imgplaceholder").html("<img src='" + imageURI + "' />");
 
-                function onError(error) 
+                    };
+
+                    function onFail(message)
+                    {
+                        alert('Failed because: ' + message);
+                    };
+
+                    navigator.camera.getPicture(onSuccess, onFail,
+                    {
+                        quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI
+                    });
+                });
+
+                $(document).on("click", "#geolocation", function ()
                 {
-                    alert('code: '    + error.code    + '\n' +
-                          'message: ' + error.message + '\n');
-                }
+                    var onSuccess = function (position)
+                    {
+                        alert(position.coords.latitude + position.coords.longitude);
+                    };
 
-                navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
+                    function onError(error)
+                    {
+                        alert(error.message);
+                    };
+
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+                });
             });
         </script>
     </head>
