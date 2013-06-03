@@ -49,7 +49,7 @@
                         alert(error.message);
                     };
 
-                    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError,{frequency:5000,maximumAge: 0, timeout: 100, enableHighAccuracy:true});
 
                 });
             });
